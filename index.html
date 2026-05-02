@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ALK Concept | Création de sites web — Fribourg</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #0A0A0A;
+  --bg2: #0F0F0F;
+  --bg3: #141414;
+  --white: #FFFFFF;
+  --muted: #6B6B6B;
+  --subtle: #A1A1A1;
+  --accent: #1ECAD3;
+  --accent2: #2FE6F0;
+  --accent3: #159CA3;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.04);
+  --glow: rgba(30,202,211,0.25);
+  --glow2: rgba(30,202,211,0.08);
+}
+
+html { scroll-behavior: smooth; width:100%; -webkit-text-size-adjust:100%; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ─── */
+#cursor {
+  position: fixed;
+  width: 12px; height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  mix-blend-mode: difference;
+}
+#cursor-glow {
+  position: fixed;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(30,202,211,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.6s ease;
+}
+body:has(a:hover) #cursor,
+body:has(button:hover) #cursor { width:28px; height:28px; opacity:0.7; }
+
+@media (hover:none) {
+  #cursor, #cursor-glow { display:none; }
+  body { cursor: auto; }
+}
+
+/* ── KEYFRAMES ─── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(40px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+@keyframes scrollTicker {
+  from { transform:translateX(0); }
+  to   { transform:translateX(-50%); }
+}
+@keyframes float {
+  0%,100% { transform:translateY(0) rotate(0deg); }
+  50%     { transform:translateY(-20px) rotate(3deg); }
+}
+@keyframes pulse {
+  0%,100% { opacity:0.4; transform:scale(1); }
+  50%     { opacity:0.7; transform:scale(1.05); }
+}
+@keyframes counterUp {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position:-200% center; }
+  100% { background-position:200% center; }
+}
+@keyframes borderPulse {
+  0%,100% { border-color: rgba(30,202,211,0.3); }
+  50%     { border-color: rgba(30,202,211,0.8); }
+}
+
+/* ── NOISE TEXTURE ─── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:1;
+  opacity:0.5;
+}
+
+/* ── NAV ─── */
+#nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:0 2.5rem;
+  height:70px;
+  display:grid;
+  grid-template-columns: auto 1fr auto;
+  align-items:center;
+  gap:2rem;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+#nav.scrolled {
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  text-decoration:none; z-index:2;
+  display:flex; align-items:center;
+  flex-shrink:0; gap:0;
+}
+.logo-alk {
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:1.1rem; letter-spacing:0.06em;
+  color:rgba(255,255,255,0.9);
+}
+.logo-concept {
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:1.1rem; letter-spacing:0.06em;
+  color:var(--accent); margin-left:0.45em;
+}
+.nav-center {
+  display:flex; gap:2.5rem; list-style:none;
+  justify-content:center; align-items:center;
+}
+.nav-center a {
+  font-size:0.82rem; font-weight:400;
+  color:var(--muted); text-decoration:none;
+  transition:color 0.3s; letter-spacing:0.02em;
+  white-space:nowrap;
+}
+.nav-center a:hover { color:var(--white); }
+.nav-cta {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color:var(--white); padding:0.55rem 1.4rem;
+  font-size:0.8rem; font-weight:500;
+  border-radius:100px; text-decoration:none;
+  transition: all 0.3s ease; white-space:nowrap;
+  backdrop-filter:blur(10px); flex-shrink:0;
+}
+.nav-cta:hover {
+  background:var(--accent);
+  border-color:var(--accent);
+  box-shadow: 0 0 30px var(--glow);
+}
+.nav-toggle {
+  display:none; background:none; border:none;
+  color:var(--white); cursor:none; padding:0.4rem;
+  grid-column:3;
+}
+.nav-toggle svg { width:22px; height:22px; }
+.nav-mobile {
+  display:none;
+  position:fixed; inset:70px 0 0 0;
+  background: rgba(10,10,10,0.98);
+  backdrop-filter:blur(20px);
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:2.5rem; z-index:99;
+}
+.nav-mobile.open { display:flex; }
+.nav-mobile a {
+  font-family:'Syne',sans-serif; font-size:2rem; font-weight:700;
+  color:var(--muted); text-decoration:none;
+  transition:color 0.3s;
+}
+.nav-mobile a:hover { color:var(--accent); }
+
+/* ── HERO ─── */
+.hero {
+  min-height:100vh;
+  display:grid; grid-template-columns:1fr 1fr;
+  position:relative; overflow:hidden;
+  padding-top:70px;
+}
+.hero-left {
+  display:flex; flex-direction:column; justify-content:center;
+  padding: 6rem 3rem 6rem 4rem;
+  position:relative; z-index:2;
+}
+.hero-right {
+  position:relative; overflow:hidden;
+  background: linear-gradient(135deg, rgba(30,202,211,0.03) 0%, transparent 60%);
+}
+
+/* Mesh gradient background */
+.hero::after {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(30,202,211,0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(30,202,211,0.02) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.hero-badge {
+  display:inline-flex; align-items:center; gap:0.6rem;
+  background: rgba(30,202,211,0.08);
+  border:1px solid rgba(30,202,211,0.2);
+  border-radius:100px; padding:0.4rem 1rem 0.4rem 0.5rem;
+  font-size:0.72rem; font-weight:500; letter-spacing:0.08em;
+  color:var(--accent); margin-bottom:2rem;
+  width:fit-content;
+  animation: fadeUp 0.8s ease-out both;
+}
+.hero-badge-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.hero h1 {
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3rem,5.5vw,5.5rem);
+  font-weight:800; line-height:1.0;
+  letter-spacing:-0.03em; margin-bottom:2rem;
+  animation: fadeUp 0.8s ease-out 0.15s both;
+}
+.hero h1 .line1 { display:block; color:var(--white); }
+.hero h1 .line2 {
+  display:block;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation: shimmer 3s linear infinite;
+}
+.hero h1 .line3 {
+  display:block;
+  color: rgba(255,255,255,0.13);
+}
+
+.hero-sub {
+  font-size:1rem; color:var(--subtle); font-weight:300;
+  max-width:38rem; line-height:1.7; margin-bottom:3rem;
+  animation: fadeUp 0.8s ease-out 0.3s both;
+}
+.hero-actions {
+  display:flex; gap:1rem; flex-wrap:wrap;
+  animation: fadeUp 0.8s ease-out 0.45s both;
+}
+.btn-primary {
+  background:var(--accent); color:#0A0A0A;
+  padding:0.9rem 2.2rem; font-size:0.85rem; font-weight:600;
+  border-radius:100px; text-decoration:none;
+  transition:all 0.3s ease; display:inline-flex; align-items:center; gap:0.5rem;
+  letter-spacing:0.02em; border:none; cursor:none;
+  position:relative; overflow:hidden;
+}
+.btn-primary::after {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+  transform:translateX(-100%);
+  transition:transform 0.5s;
+}
+.btn-primary:hover::after { transform:translateX(100%); }
+.btn-primary:hover {
+  background:var(--accent2);
+  box-shadow:0 10px 40px var(--glow);
+  transform:translateY(-2px);
+}
+.btn-ghost {
+  background:transparent; color:var(--white);
+  padding:0.9rem 2.2rem; font-size:0.85rem; font-weight:500;
+  border-radius:100px; text-decoration:none; letter-spacing:0.02em;
+  border:1px solid var(--border); transition:all 0.3s ease;
+  display:inline-flex; align-items:center; gap:0.5rem;
+}
+.btn-ghost:hover {
+  border-color:var(--accent);
+  color:var(--accent);
+  background:rgba(30,202,211,0.05);
+}
+
+.hero-stats {
+  display:flex; gap:3rem; margin-top:4rem; padding-top:3rem;
+  border-top:1px solid var(--border);
+  animation: fadeUp 0.8s ease-out 0.6s both;
+}
+.hero-stat-val {
+  font-family:'Syne',sans-serif;
+  font-size:1.8rem; font-weight:700; color:var(--white);
+  display:block; line-height:1;
+}
+.hero-stat-val span { color:var(--accent); }
+.hero-stat-label {
+  font-size:0.75rem; color:var(--muted); margin-top:0.3rem;
+  display:block; letter-spacing:0.05em;
+}
+
+/* Hero visual — carousel */
+.hero-visual {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.card-carousel {
+  display:flex; flex-direction:column; align-items:center; gap:1.5rem;
+  width:320px;
+}
+.card-slides {
+  position:relative; width:100%; height:380px;
+}
+.c-card {
+  position:absolute; inset:0;
+  border-radius:24px; overflow:hidden;
+  background: linear-gradient(135deg, var(--bg3) 0%, rgba(30,202,211,0.04) 100%);
+  border:1px solid var(--border);
+  padding:2rem;
+  display:flex; flex-direction:column;
+  opacity:0; transform:translateX(40px) scale(0.96);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  pointer-events:none; cursor:default;
+}
+.c-card.active {
+  opacity:1; transform:translateX(0) scale(1);
+  pointer-events:auto;
+}
+.c-card.exit {
+  opacity:0; transform:translateX(-40px) scale(0.96);
+}
+.c-card-num {
+  font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700;
+  color:var(--accent); letter-spacing:0.18em; margin-bottom:1.2rem;
+}
+.c-card-title {
+  font-family:'Syne',sans-serif; font-size:1.35rem; font-weight:700;
+  color:var(--white); line-height:1.2; margin-bottom:0.4rem;
+}
+.c-card-sub { font-size:0.78rem; color:var(--muted); margin-bottom:1.5rem; }
+.c-card-line { height:1px; background:var(--border); margin-bottom:1.5rem; }
+.c-card-items { display:flex; flex-direction:column; gap:0.75rem; flex:1; }
+.c-card-item {
+  display:flex; align-items:center; gap:0.6rem;
+  font-size:0.8rem; color:var(--subtle);
+}
+.c-card-item::before {
+  content:''; width:6px; height:6px; border-radius:50%;
+  background:var(--accent); flex-shrink:0;
+}
+.c-card-footer {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:1.5rem; border-top:1px solid var(--border); margin-top:auto;
+}
+.c-card-tag {
+  font-size:0.68rem; padding:0.25rem 0.7rem; border-radius:100px;
+  background:rgba(30,202,211,0.08); border:1px solid rgba(30,202,211,0.15);
+  color:var(--accent); font-weight:500;
+}
+.c-card-price {
+  font-family:'Syne',sans-serif; font-size:1rem; font-weight:700;
+  color:var(--white);
+}
+
+/* Nav carousel */
+.card-nav {
+  display:flex; align-items:center; gap:1rem;
+}
+.card-btn {
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid var(--border); background:transparent;
+  color:var(--white); cursor:none;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem; transition:all 0.3s ease;
+}
+.card-btn:hover {
+  border-color:var(--accent); background:rgba(30,202,211,0.1);
+  color:var(--accent);
+}
+.card-dots { display:flex; gap:0.5rem; align-items:center; }
+.card-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--border); transition:all 0.3s ease; cursor:none;
+  border:none; padding:0;
+}
+.card-dot.active {
+  background:var(--accent); width:20px; border-radius:3px;
+}
+
+/* Floating elements */
+.float-el {
+  position:absolute;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  background:rgba(20,20,20,0.8);
+  animation:float 6s ease-in-out infinite;
+}
+.float-el:nth-child(1) {
+  top:15%; left:5%;
+  padding:0.8rem 1.2rem;
+  font-size:0.72rem; color:var(--subtle);
+  animation-delay:-2s;
+}
+.float-el:nth-child(2) {
+  bottom:20%; left:8%;
+  padding:0.8rem 1.2rem;
+  font-size:0.72rem; color:var(--subtle);
+  animation-delay:-4s;
+}
+.float-accent {
+  display:inline; color:var(--accent); font-weight:600;
+}
+
+/* ── TICKER ─── */
+.ticker-wrap {
+  background:var(--accent); padding:0.9rem 0; overflow:hidden;
+  position:relative; z-index:2;
+}
+.ticker-inner {
+  display:inline-flex; gap:0; white-space:nowrap;
+  animation: scrollTicker 20s linear infinite;
+}
+.ticker-item {
+  font-family:'Syne',sans-serif;
+  font-size:0.72rem; font-weight:700;
+  letter-spacing:0.18em; text-transform:uppercase;
+  color:#0A0A0A; padding:0 3rem;
+}
+.ticker-sep { color:rgba(0,0,0,0.3); }
+
+/* ── SECTIONS ─── */
+.section {
+  padding: clamp(5rem,8vw,10rem) clamp(1.5rem,5vw,4rem);
+}
+.section-inner { max-width:1200px; margin:0 auto; }
+
+.label {
+  font-size:0.68rem; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--accent);
+  display:flex; align-items:center; gap:0.6rem;
+  margin-bottom:1.2rem;
+}
+.label::before {
+  content:''; width:2rem; height:1px; background:var(--accent);
+}
+
+h2.title {
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);
+  font-weight:800; line-height:1.05;
+  letter-spacing:-0.03em; margin-bottom:1.5rem;
+}
+
+/* ── ABOUT ─── */
+.about-grid {
+  display:grid; grid-template-columns:1fr 1.4fr;
+  gap:6rem; align-items:start;
+}
+.about-sticky { position:sticky; top:100px; }
+
+.card-glass {
+  background: rgba(255,255,255,0.02);
+  border:1px solid var(--border);
+  border-radius:24px; overflow:hidden;
+  backdrop-filter:blur(10px);
+  transition:all 0.4s ease;
+}
+.card-glass:hover {
+  border-color:rgba(30,202,211,0.3);
+  box-shadow: 0 20px 60px rgba(30,202,211,0.08);
+  transform:translateY(-4px);
+}
+
+.about-card-header {
+  padding:2.5rem 2rem 1.5rem;
+  background:linear-gradient(135deg,rgba(30,202,211,0.05) 0%,transparent 60%);
+  border-bottom:1px solid var(--border);
+  position:relative; overflow:hidden;
+}
+.about-card-header::after {
+  content:'ALK';
+  position:absolute; right:1.5rem; bottom:-0.5rem;
+  font-family:'Syne',sans-serif; font-size:5rem; font-weight:800;
+  color:rgba(30,202,211,0.06); line-height:1; pointer-events:none;
+  letter-spacing:-0.02em;
+}
+.avatar {
+  width:52px; height:52px; border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent3));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-size:1rem; font-weight:700;
+  color:#0A0A0A; margin-bottom:1.2rem;
+}
+.about-card-name {
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:1rem; color:var(--white); margin-bottom:0.2rem;
+}
+.about-card-role { font-size:0.82rem; color:var(--muted); }
+
+.about-card-stats { padding:0 2rem; }
+.stat-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0.9rem 0; border-bottom:1px solid var(--border2);
+  font-size:0.82rem;
+}
+.stat-row:last-child { border-bottom:none; }
+.stat-key { color:var(--muted); }
+.stat-data { color:var(--white); font-weight:400; }
+
+.about-text .lead {
+  font-size:1.1rem; color:var(--subtle); line-height:1.75;
+  margin-bottom:1.8rem; font-weight:300;
+}
+.about-text p {
+  font-size:0.92rem; color:var(--muted); line-height:1.75;
+  margin-bottom:1.2rem;
+}
+
+.highlight-card {
+  background:rgba(30,202,211,0.04);
+  border:1px solid rgba(30,202,211,0.15);
+  border-radius:16px; padding:1.5rem;
+  margin:2.5rem 0;
+  transition:all 0.3s ease;
+}
+.highlight-card:hover {
+  background:rgba(30,202,211,0.07);
+  border-color:rgba(30,202,211,0.3);
+}
+.highlight-card p {
+  font-size:0.92rem; color:var(--white); line-height:1.7;
+  margin:0;
+}
+
+.timeline { margin-top:2.5rem; }
+.tl-row {
+  display:flex; gap:1.5rem;
+  padding:1.2rem 0; border-bottom:1px solid var(--border2);
+  align-items:center;
+}
+.tl-row:first-child { border-top:1px solid var(--border2); }
+.tl-tag {
+  font-family:'Syne',sans-serif; font-size:0.75rem; font-weight:700;
+  color:var(--accent); min-width:3.5rem; letter-spacing:0.08em;
+}
+.tl-content { font-size:0.85rem; color:var(--muted); }
+
+/* ── SERVICES ─── */
+.services-section { border-top:1px solid var(--border); }
+.services-head {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:4rem; align-items:end; margin-bottom:5rem;
+}
+.services-desc { font-size:0.95rem; color:var(--muted); line-height:1.7; padding-top:2rem; }
+
+.services-grid {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:1.5px; background:var(--border);
+  border-radius:24px; overflow:hidden;
+}
+.service-card {
+  background:var(--bg);
+  padding:2.8rem 2.5rem;
+  position:relative; overflow:hidden;
+  transition:all 0.4s ease;
+  cursor:default;
+}
+.service-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform 0.4s ease;
+}
+.service-card:hover::before { transform:scaleX(1); }
+.service-card:hover {
+  background:var(--bg3);
+}
+.service-card::after {
+  content:'';
+  position:absolute; top:-40px; right:-40px;
+  width:160px; height:160px; border-radius:50%;
+  background:radial-gradient(circle,rgba(30,202,211,0.04) 0%,transparent 70%);
+  transition:opacity 0.4s;
+  opacity:0;
+}
+.service-card:hover::after { opacity:1; }
+
+.service-icon {
+  width:48px; height:48px; border-radius:12px;
+  border:1px solid var(--border);
+  background:rgba(30,202,211,0.05);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:1.8rem;
+  transition:all 0.3s;
+}
+.service-card:hover .service-icon {
+  background:rgba(30,202,211,0.1);
+  border-color:rgba(30,202,211,0.3);
+}
+.service-icon svg { width:22px; height:22px; stroke:var(--accent); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+.service-num {
+  font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700;
+  color:var(--accent); letter-spacing:0.15em; margin-bottom:0.8rem;
+}
+.service-name {
+  font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700;
+  color:var(--white); margin-bottom:0.8rem; line-height:1.2;
+}
+.service-desc {
+  font-size:0.85rem; color:var(--muted); line-height:1.7;
+  margin-bottom:1.8rem;
+}
+.service-footer {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:1.5rem; border-top:1px solid var(--border2);
+}
+.service-tag {
+  font-size:0.7rem; font-weight:500; padding:0.3rem 0.8rem;
+  border-radius:100px; background:rgba(30,202,211,0.08);
+  border:1px solid rgba(30,202,211,0.15);
+  color:var(--accent);
+}
+.service-price {
+  font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:700;
+  color:var(--white);
+}
+
+/* ── WHY ─── */
+.why-section { background:var(--bg2); }
+.why-head {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-bottom:5rem; gap:2rem; flex-wrap:wrap;
+}
+.why-sub { max-width:36rem; font-size:0.92rem; color:var(--muted); line-height:1.7; }
+
+.why-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1.5px; background:var(--border);
+  border-radius:24px; overflow:hidden;
+}
+.why-card {
+  background:var(--bg2); padding:2.5rem 2rem;
+  transition:all 0.3s ease; position:relative; overflow:hidden;
+}
+.why-card:hover {
+  background:var(--bg3);
+}
+.why-card:hover .why-num-big {
+  opacity:0.08;
+}
+.why-num-big {
+  position:absolute; right:-0.5rem; bottom:-1rem;
+  font-family:'Syne',sans-serif; font-size:6rem; font-weight:800;
+  color:var(--accent); opacity:0.04; line-height:1; pointer-events:none;
+  transition:opacity 0.3s;
+}
+.why-tag {
+  font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700;
+  color:var(--accent); letter-spacing:0.15em; margin-bottom:1.5rem; display:block;
+}
+.why-card h3 {
+  font-family:'Syne',sans-serif; font-size:1rem; font-weight:700;
+  color:var(--white); margin-bottom:0.8rem;
+}
+.why-card p { font-size:0.83rem; color:var(--muted); line-height:1.7; }
+
+/* ── COUNTER BAND ─── */
+.counter-band {
+  background:linear-gradient(135deg,rgba(30,202,211,0.04) 0%,rgba(30,202,211,0.01) 100%);
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:4rem clamp(1.5rem,5vw,4rem);
+}
+.counter-inner {
+  max-width:1200px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:2rem;
+}
+.counter-item { text-align:center; }
+.counter-val {
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2rem,3.5vw,3rem); font-weight:800;
+  color:var(--white); line-height:1.1; display:block;
+}
+.counter-val .accent { color:var(--accent); font-size:0.85em; }
+.counter-label {
+  font-size:0.78rem; color:var(--muted); margin-top:0.5rem; display:block;
+  letter-spacing:0.05em;
+}
+
+/* ── CONTACT ─── */
+.contact-section { border-top:1px solid var(--border); }
+.contact-grid {
+  display:grid; grid-template-columns:1fr 1.2fr;
+  gap:6rem; align-items:start;
+}
+
+.contact-info { margin-top:3rem; }
+.info-block {
+  padding:1.2rem 0; border-bottom:1px solid var(--border2);
+}
+.info-block:first-child { border-top:1px solid var(--border2); }
+.info-key {
+  font-size:0.65rem; font-weight:600; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;
+}
+.info-val {
+  font-size:0.95rem; color:var(--white);
+}
+.info-val a {
+  color:var(--white); text-decoration:none; transition:color 0.3s;
+}
+.info-val a:hover { color:var(--accent); }
+
+.form-wrap { margin-top:3rem; }
+.form-title {
+  font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:700;
+  color:var(--white); margin-bottom:2rem; line-height:1.2;
+}
+.form { display:flex; flex-direction:column; gap:1rem; }
+.form-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.field { display:flex; flex-direction:column; gap:0.4rem; }
+.field label {
+  font-size:0.65rem; font-weight:600; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--muted);
+}
+.field input, .field textarea, .field select {
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  color:var(--white); padding:0.9rem 1.1rem;
+  font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:300;
+  border-radius:12px; outline:none;
+  transition:border-color 0.3s, background 0.3s;
+  -webkit-appearance:none;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  border-color:rgba(30,202,211,0.5);
+  background:rgba(30,202,211,0.03);
+}
+.field select option { background:#1a1a1a; }
+.field textarea { min-height:130px; resize:vertical; }
+.form-btn {
+  background:var(--accent); color:#0A0A0A;
+  padding:1rem 2.5rem; font-family:'Inter',sans-serif;
+  font-size:0.85rem; font-weight:700; letter-spacing:0.05em;
+  cursor:none; border:none; border-radius:100px;
+  align-self:flex-start; transition:all 0.3s ease;
+  display:inline-flex; align-items:center; gap:0.5rem;
+  position:relative; overflow:hidden;
+}
+.form-btn::after {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+  transform:translateX(-100%); transition:transform 0.5s;
+}
+.form-btn:hover::after { transform:translateX(100%); }
+.form-btn:hover {
+  background:var(--accent2);
+  box-shadow:0 10px 40px var(--glow);
+  transform:translateY(-2px);
+}
+
+/* ── FOOTER ─── */
+footer {
+  background:var(--bg); border-top:1px solid var(--border);
+  padding:2.5rem clamp(1.5rem,5vw,4rem);
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:1.5rem;
+}
+.footer-logo {
+  font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:700;
+  letter-spacing:0.12em; color:var(--white);
+  display:flex; align-items:center; gap:0.5rem;
+}
+.footer-logo .dot { width:6px; height:6px; border-radius:50%; background:var(--accent); }
+.footer-copy { font-size:0.75rem; color:var(--muted); }
+
+/* ── REVEAL ─── */
+.reveal { opacity:0; transform:translateY(30px); }
+.reveal.in {
+  animation: fadeUp 0.9s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+/* ── RESPONSIVE ─── */
+@media (max-width:1000px) {
+  /* Nav */
+  #nav {
+    padding: 0 1.25rem;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+  .nav-center { display:none; }
+  .nav-cta { display:none; }
+  .nav-toggle { display:flex; grid-column:auto; }
+
+  /* Hero */
+  .hero { grid-template-columns:1fr; min-height:auto; }
+  .hero-left {
+    padding: 7rem 1.25rem 3.5rem;
+    text-align:center; align-items:center;
+  }
+  .hero-right { display:none; }
+  .hero-stats { justify-content:center; flex-wrap:wrap; gap:2rem; }
+  .hero-actions { justify-content:center; }
+  .hero h1 { font-size: clamp(2.5rem,9vw,4rem); }
+  .hero-sub { font-size:0.95rem; }
+
+  /* Sections */
+  .section { padding: 4rem 1.25rem; }
+  .section-inner { padding:0; }
+
+  /* About */
+  .about-grid { grid-template-columns:1fr; gap:2.5rem; }
+  .about-sticky { position:static; }
+
+  /* Services */
+  .services-head { grid-template-columns:1fr; gap:1rem; }
+  .services-grid { grid-template-columns:1fr; }
+
+  /* Why */
+  .why-grid { grid-template-columns:1fr 1fr; }
+
+  /* Counter */
+  .counter-band { padding: 3rem 1.25rem; }
+  .counter-inner { grid-template-columns:repeat(2,1fr); gap:2rem; }
+
+  /* Contact */
+  .contact-grid { grid-template-columns:1fr; gap:2.5rem; }
+  .form-wrap { margin-top:0; }
+
+  /* Footer */
+  footer { padding: 2rem 1.25rem; }
+}
+
+@media (max-width:600px) {
+  /* Nav */
+  #nav { padding: 0 1rem; }
+
+  /* Hero — tout doit rester dans l'écran */
+  .hero { overflow:hidden; }
+  .hero-left {
+    padding: 5.5rem 1.2rem 2.5rem;
+    width: 100%; max-width: 100%;
+  }
+  .hero-badge {
+    font-size: 0.6rem;
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: 0.4rem 0.8rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.9rem, 8.5vw, 2.6rem);
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+    width: 100%;
+  }
+  .hero-sub {
+    font-size: 0.88rem;
+    max-width: 100%;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%; gap: 0.75rem;
+  }
+  .btn-primary, .btn-ghost {
+    width: 100%; justify-content: center;
+    padding: 0.85rem 1rem; font-size: 0.85rem;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem; width: 100%;
+    padding-top: 1.5rem; margin-top: 1.5rem;
+  }
+  .hero-stats > div:last-child {
+    grid-column: span 2; text-align: center;
+  }
+  .hero-stat-val { font-size: 1.5rem; }
+  .hero-stat-label { font-size: 0.7rem; }
+
+  /* Sections */
+  .section { padding: 3.5rem 1.2rem; }
+  h2.title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+
+  /* About */
+  .about-card-header { padding: 1.8rem 1.5rem 1.2rem; }
+  .about-card-stats { padding: 0 1.5rem; }
+
+  /* Services */
+  .service-card { padding: 2rem 1.5rem; }
+
+  /* Why */
+  .why-grid { grid-template-columns:1fr; }
+  .why-head { flex-direction:column; gap:1rem; }
+
+  /* Counter */
+  .counter-band { padding: 2.5rem 1.2rem; }
+  .counter-inner { grid-template-columns:1fr 1fr; gap:1.5rem; }
+  .counter-val { font-size: clamp(1.5rem, 7vw, 2rem); }
+
+  /* Contact */
+  .form-2 { grid-template-columns:1fr; }
+  .contact-grid { gap:2rem; }
+  .form-title { font-size:1.3rem; }
+  .contact-info { margin-top:1.5rem; }
+
+  /* Footer */
+  footer { flex-direction:column; align-items:flex-start; gap:0.8rem; padding:1.8rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-glow"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#home">
+    <span class="logo-alk">ALK</span><span class="logo-concept">CONCEPT</span>
+  </a>
+  <ul class="nav-center">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pourquoi">Pourquoi moi</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Démarrer un projet →</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path id="menu-icon-1" d="M3 6h18"/><path id="menu-icon-2" d="M3 12h18"/><path id="menu-icon-3" d="M3 18h18"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="nav-mobile" id="navMobile">
+  <a href="#about" class="nav-mobile-link">À propos</a>
+  <a href="#services" class="nav-mobile-link">Services</a>
+  <a href="#pourquoi" class="nav-mobile-link">Pourquoi moi</a>
+  <a href="#contact" class="nav-mobile-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Création web sur mesure · Fribourg, Suisse
+    </div>
+    <h1>
+      <span class="line1">VOTRE IMAGE</span>
+      <span class="line2">EN LIGNE,</span>
+      <span class="line3">RÉINVENTÉE.</span>
+    </h1>
+    <p class="hero-sub">
+      Sites web modernes et percutants pour les PME et indépendants
+      qui veulent une présence digitale à la hauteur de leurs ambitions.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Mes services <span>↓</span></a>
+      <a href="#contact" class="btn-ghost">Me contacter</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-val">5–7<span>j</span></span>
+        <span class="hero-stat-label">Délai de livraison</span>
+      </div>
+      <div>
+        <span class="hero-stat-val">100<span>%</span></span>
+        <span class="hero-stat-label">Sur mesure</span>
+      </div>
+      <div>
+        <span class="hero-stat-val">CHF<span>0</span></span>
+        <span class="hero-stat-label">De frais cachés</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="float-el">⚡ Livraison express <span class="float-accent">5 jours</span></div>
+    <div class="float-el">✓ Satisfaction <span class="float-accent">garantie</span></div>
+    <div class="hero-visual">
+      <div class="card-carousel" id="cardCarousel">
+        <div class="card-slides">
+
+          <!-- Carte 1 -->
+          <div class="c-card active">
+            <div class="c-card-num">01 / 04</div>
+            <div class="c-card-title">Site vitrine<br>sur mesure</div>
+            <div class="c-card-sub">Votre identité, sublimée en ligne</div>
+            <div class="c-card-line"></div>
+            <div class="c-card-items">
+              <div class="c-card-item">Design 100% personnalisé</div>
+              <div class="c-card-item">Responsive mobile & tablette</div>
+              <div class="c-card-item">Contenu rédigé inclus</div>
+              <div class="c-card-item">Livraison en 5–7 jours</div>
+            </div>
+            <div class="c-card-footer">
+              <span class="c-card-tag">HTML / CSS / JS</span>
+              <span class="c-card-price">Dès CHF 1'200.–</span>
+            </div>
+          </div>
+
+          <!-- Carte 2 -->
+          <div class="c-card">
+            <div class="c-card-num">02 / 04</div>
+            <div class="c-card-title">Refonte de<br>site existant</div>
+            <div class="c-card-sub">Donnez un second souffle à votre image</div>
+            <div class="c-card-line"></div>
+            <div class="c-card-items">
+              <div class="c-card-item">Modernisation complète</div>
+              <div class="c-card-item">Design mobile-first</div>
+              <div class="c-card-item">Performance optimisée</div>
+              <div class="c-card-item">Même contenu, nouvelle vie</div>
+            </div>
+            <div class="c-card-footer">
+              <span class="c-card-tag">Redesign</span>
+              <span class="c-card-price">Sur devis</span>
+            </div>
+          </div>
+
+          <!-- Carte 3 -->
+          <div class="c-card">
+            <div class="c-card-num">03 / 04</div>
+            <div class="c-card-title">Rédaction<br>& contenu</div>
+            <div class="c-card-sub">Des mots qui convertissent</div>
+            <div class="c-card-line"></div>
+            <div class="c-card-items">
+              <div class="c-card-item">Textes professionnels</div>
+              <div class="c-card-item">Ton adapté à votre activité</div>
+              <div class="c-card-item">Structure claire & persuasive</div>
+              <div class="c-card-item">Inclus dans chaque projet</div>
+            </div>
+            <div class="c-card-footer">
+              <span class="c-card-tag">Inclus</span>
+              <span class="c-card-price">Offert</span>
+            </div>
+          </div>
+
+          <!-- Carte 4 -->
+          <div class="c-card">
+            <div class="c-card-num">04 / 04</div>
+            <div class="c-card-title">Optimisation<br>mobile</div>
+            <div class="c-card-sub">Parfait sur tous les écrans</div>
+            <div class="c-card-line"></div>
+            <div class="c-card-items">
+              <div class="c-card-item">100% responsive</div>
+              <div class="c-card-item">Testé smartphone & tablette</div>
+              <div class="c-card-item">Chargement rapide</div>
+              <div class="c-card-item">Inclus dans chaque projet</div>
+            </div>
+            <div class="c-card-footer">
+              <span class="c-card-tag">Inclus</span>
+              <span class="c-card-price">Offert</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Navigation -->
+        <div class="card-nav">
+          <button class="card-btn" id="cardPrev">←</button>
+          <div class="card-dots" id="cardDots">
+            <button class="card-dot active"></button>
+            <button class="card-dot"></button>
+            <button class="card-dot"></button>
+            <button class="card-dot"></button>
+          </div>
+          <button class="card-btn" id="cardNext">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-sticky reveal">
+        <div class="card-glass">
+          <div class="about-card-header">
+            <div class="avatar">ALK</div>
+            <div class="about-card-name">Alexis Ludwig Käser</div>
+            <div class="about-card-role">Créateur web freelance</div>
+          </div>
+          <div class="about-card-stats">
+            <div class="stat-row">
+              <span class="stat-key">Formation</span>
+              <span class="stat-data">CFC Employé de commerce</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-key">En cours</span>
+              <span class="stat-data">Maturité professionnelle</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-key">Objectif</span>
+              <span class="stat-data">HEG Fribourg</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-key">Localisation</span>
+              <span class="stat-data">Posieux, Fribourg</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-key">Spécialité</span>
+              <span class="stat-data">HTML · CSS · JS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text reveal">
+        <span class="label">Qui suis-je</span>
+        <h2 class="title">Passionné du digital,<br>créateur de votre présence.</h2>
+
+        <p class="lead">
+          Le web m'a toujours fasciné — cette capacité à créer des expériences
+          visuelles percutantes, accessibles à n'importe qui dans le monde, à partir de
+          quelques lignes de code. Depuis que j'ai découvert ça, je n'ai jamais arrêté.
+        </p>
+
+        <p>
+          Titulaire d'un CFC d'employé de commerce, je prépare actuellement ma maturité
+          professionnelle pour intégrer la Haute École de Gestion (HEG) de Fribourg.
+          Cette double culture — créative et business — me permet de concevoir des sites
+          qui ne sont pas seulement beaux, mais qui servent vraiment vos objectifs.
+        </p>
+
+        <div class="highlight-card">
+          <p>
+            Sous la marque <strong>ALK Concept</strong>, je propose des sites web sur mesure aux PME et
+            indépendants qui veulent une présence en ligne à la hauteur de leur ambition —
+            sans passer par une agence aux tarifs inaccessibles.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-row">
+            <div class="tl-tag">CFC</div>
+            <div class="tl-content">Employé de commerce — rigueur, gestion, relation client</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-tag">2026</div>
+            <div class="tl-content">Maturité professionnelle en cours — intégration HEG prévue</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-tag">ALK</div>
+            <div class="tl-content">Fondation d'ALK Concept — création de sites web sur mesure</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-section" id="services">
+  <div class="section-inner">
+    <div class="services-head reveal">
+      <div>
+        <span class="label">Ce que je propose</span>
+        <h2 class="title">Mes services</h2>
+      </div>
+      <p class="services-desc">
+        Des prestations complètes pour donner à votre entreprise
+        une présence en ligne professionnelle et mémorable.
+      </p>
+    </div>
+
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        <div class="service-num">01</div>
+        <div class="service-name">Site vitrine sur mesure</div>
+        <div class="service-desc">Un site professionnel, unique et responsive — conçu de A à Z selon votre identité et vos besoins.</div>
+        <div class="service-footer">
+          <span class="service-tag">HTML / CSS / JS</span>
+          <span class="service-price">Dès CHF 1'200.–</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div class="service-num">02</div>
+        <div class="service-name">Refonte de site existant</div>
+        <div class="service-desc">Votre site actuel est daté ? Je le transforme en vitrine moderne, responsive et percutante.</div>
+        <div class="service-footer">
+          <span class="service-tag">Redesign</span>
+          <span class="service-price">Sur devis</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="service-num">03</div>
+        <div class="service-name">Rédaction & contenu</div>
+        <div class="service-desc">Des textes professionnels qui valorisent votre activité et convainquent vos visiteurs.</div>
+        <div class="service-footer">
+          <span class="service-tag">Inclus</span>
+          <span class="service-price">Offert</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div class="service-num">04</div>
+        <div class="service-name">Optimisation mobile</div>
+        <div class="service-desc">100 % responsive — parfait sur smartphone, tablette et desktop. Sans compromis.</div>
+        <div class="service-footer">
+          <span class="service-tag">Inclus</span>
+          <span class="service-price">Offert</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTER BAND -->
+<div class="counter-band">
+  <div class="counter-inner reveal">
+    <div class="counter-item">
+      <span class="counter-val" data-count="7">0<span class="accent"> jours</span></span>
+      <span class="counter-label">Délai de livraison maximum</span>
+    </div>
+    <div class="counter-item">
+      <span class="counter-val" data-count="2">0<span class="accent">×</span></span>
+      <span class="counter-label">Cycles de révisions inclus</span>
+    </div>
+    <div class="counter-item">
+      <span class="counter-val" data-count="100">0<span class="accent">%</span></span>
+      <span class="counter-label">Sur mesure, sans template</span>
+    </div>
+    <div class="counter-item">
+      <span class="counter-val" data-count="0">0<span class="accent">CHF</span></span>
+      <span class="counter-label">Frais cachés, zéro TVA</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="section why-section" id="pourquoi">
+  <div class="section-inner">
+    <div class="why-head reveal">
+      <div>
+        <span class="label">Mes atouts</span>
+        <h2 class="title">Pourquoi choisir<br>ALK Concept ?</h2>
+      </div>
+      <p class="why-sub">6 raisons concrètes de me faire confiance pour votre projet web.</p>
+    </div>
+
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <span class="why-num-big">01</span>
+        <span class="why-tag">01 — RÉSULTAT</span>
+        <h3>Résultat immédiat</h3>
+        <p>Je crée votre site avant même de vous rencontrer — vous pouvez le voir dès le premier contact, sans attendre.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num-big">02</span>
+        <span class="why-tag">02 — QUALITÉ</span>
+        <h3>100 % sur mesure</h3>
+        <p>Pas de template générique. Chaque site est conçu spécifiquement pour votre entreprise et vos clients.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num-big">03</span>
+        <span class="why-tag">03 — LOCAL</span>
+        <h3>Local & disponible</h3>
+        <p>Basé à Posieux (Fribourg), je suis disponible pour une rencontre en personne. Je connais le tissu local.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num-big">04</span>
+        <span class="why-tag">04 — PRIX</span>
+        <h3>Prix transparent</h3>
+        <p>Devis clair, sans surprise, sans TVA. Prix négociable selon votre projet. Paiement confortable en deux fois.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num-big">05</span>
+        <span class="why-tag">05 — GARANTIE</span>
+        <h3>Satisfaction garantie</h3>
+        <p>2 cycles de révisions inclus dans chaque projet — on ajuste jusqu'à ce que vous soyez pleinement satisfait.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num-big">06</span>
+        <span class="why-tag">06 — VITESSE</span>
+        <h3>Livraison rapide</h3>
+        <p>5 à 7 jours ouvrables pour un site complet et professionnel. Besoin de plus rapide ? On en discute.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <div class="reveal">
+          <span class="label">Me contacter</span>
+          <h2 class="title">Démarrons<br>votre projet.</h2>
+        </div>
+        <div class="contact-info reveal">
+          <div class="info-block">
+            <div class="info-key">Email</div>
+            <div class="info-val"><a href="mailto:alexis.kaser@hotmail.com">alexis.kaser@hotmail.com</a></div>
+          </div>
+          <div class="info-block">
+            <div class="info-key">Téléphone</div>
+            <div class="info-val"><a href="tel:0782628060">078 262 80 60</a></div>
+          </div>
+          <div class="info-block">
+            <div class="info-key">Localisation</div>
+            <div class="info-val">Posieux · Fribourg · Suisse</div>
+          </div>
+          <div class="info-block">
+            <div class="info-key">Réponse</div>
+            <div class="info-val">Sous 24h, du lundi au vendredi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrap reveal">
+        <div class="form-title">Demander un<br>devis gratuit.</div>
+        <form class="form" id="contactForm" action="https://formspree.io/f/mrejepeg" method="POST">
+          <div class="form-2">
+            <div class="field">
+              <label for="prenom">Prénom</label>
+              <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
+            </div>
+            <div class="field">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" placeholder="Dupont" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="jean.dupont@email.ch" required>
+          </div>
+          <div class="field">
+            <label for="projet">Type de projet</label>
+            <select id="projet" name="projet" required>
+              <option value="">Sélectionnez</option>
+              <option>Site vitrine sur mesure</option>
+              <option>Refonte de site existant</option>
+              <option>Autre demande</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" placeholder="Décrivez votre activité et vos besoins..." required></textarea>
+          </div>
+          <button type="submit" class="form-btn" id="submitBtn">
+            Envoyer ma demande <span>→</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <span class="logo-alk">ALK</span><span class="logo-concept">CONCEPT</span>
+  </div>
+  <div class="footer-copy">© 2026 ALK Concept · Alexis Ludwig Käser · Posieux, Fribourg</div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const cursor = document.getElementById('cursor');
+const cursorGlow = document.getElementById('cursor-glow');
+let mx = -100, my = -100, gx = -100, gy = -100;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateGlow() {
+  gx += (mx - gx) * 0.06;
+  gy += (my - gy) * 0.06;
+  cursorGlow.style.left = gx + 'px';
+  cursorGlow.style.top = gy + 'px';
+  requestAnimationFrame(animateGlow);
+}
+animateGlow();
+
+/* ── NAV SCROLL ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+}, { passive: true });
+
+/* ── MOBILE NAV ── */
+const navToggle = document.getElementById('navToggle');
+const navMobile = document.getElementById('navMobile');
+navToggle.addEventListener('click', () => {
+  navMobile.classList.toggle('open');
+  navToggle.setAttribute('aria-label', navMobile.classList.contains('open') ? 'Fermer' : 'Menu');
+});
+document.querySelectorAll('.nav-mobile-link').forEach(a => {
+  a.addEventListener('click', () => navMobile.classList.remove('open'));
+});
+
+/* ── REVEAL ON SCROLL ── */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.style.animationDelay = (i % 3 * 0.1) + 's';
+      e.target.classList.add('in');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+/* ── COUNTER ANIMATION ── */
+function animateCount(el, target, duration) {
+  const suffix = el.querySelector('span')?.textContent || '';
+  const start = performance.now();
+  const update = now => {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const val = Math.round(ease * target);
+    el.textContent = val;
+    const s = document.createElement('span');
+    s.className = 'accent';
+    s.textContent = suffix;
+    el.appendChild(s);
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const target = parseInt(el.dataset.count);
+      animateCount(el, target, 1200);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter-val[data-count]').forEach(el => counterObserver.observe(el));
+
+/* ── FORM SUBMIT ── */
+const contactForm = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+contactForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  submitBtn.innerHTML = 'Envoi en cours...';
+  submitBtn.disabled = true;
+  try {
+    const res = await fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      submitBtn.innerHTML = 'Message envoyé ✓';
+      submitBtn.style.background = '#22c55e';
+      contactForm.reset();
+      setTimeout(() => {
+        submitBtn.innerHTML = 'Envoyer ma demande <span>→</span>';
+        submitBtn.style.background = '';
+        submitBtn.disabled = false;
+      }, 4000);
+    } else {
+      submitBtn.innerHTML = 'Erreur — réessayez';
+      submitBtn.style.background = '#ef4444';
+      submitBtn.disabled = false;
+      setTimeout(() => {
+        submitBtn.innerHTML = 'Envoyer ma demande <span>→</span>';
+        submitBtn.style.background = '';
+      }, 3000);
+    }
+  } catch {
+    submitBtn.innerHTML = 'Erreur réseau';
+    submitBtn.style.background = '#ef4444';
+    submitBtn.disabled = false;
+  }
+});
+
+/* ── CAROUSEL ── */
+const cards = document.querySelectorAll('.c-card');
+const dots  = document.querySelectorAll('.card-dot');
+let current = 0;
+let autoTimer;
+
+function goTo(index) {
+  cards[current].classList.remove('active');
+  cards[current].classList.add('exit');
+  dots[current].classList.remove('active');
+
+  setTimeout(() => {
+    cards[current].classList.remove('exit');
+    current = (index + cards.length) % cards.length;
+    cards[current].classList.add('active');
+    dots[current].classList.add('active');
+  }, 60);
+}
+
+function startAuto() {
+  autoTimer = setInterval(() => goTo(current + 1), 4000);
+}
+function stopAuto() { clearInterval(autoTimer); }
+
+document.getElementById('cardNext').addEventListener('click', () => { stopAuto(); goTo(current + 1); startAuto(); });
+document.getElementById('cardPrev').addEventListener('click', () => { stopAuto(); goTo(current - 1); startAuto(); });
+dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); }));
+
+/* Swipe tactile */
+let touchStartX = 0;
+const carousel = document.getElementById('cardCarousel');
+if (carousel) {
+  carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  carousel.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { stopAuto(); goTo(diff > 0 ? current + 1 : current - 1); startAuto(); }
+  }, { passive: true });
+}
+
+startAuto();
+
+/* ── PARALLAX CAROUSEL ── */
+const heroRight = document.querySelector('.hero-right');
+if (heroRight) {
+  document.addEventListener('mousemove', e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+    const y = (e.clientY / window.innerHeight - 0.5) * 6;
+    const el = document.querySelector('.card-carousel');
+    if (el) el.style.transform = `perspective(900px) rotateY(${-x}deg) rotateX(${y}deg)`;
+  });
+}
+</script>
+</body>
+</html>
