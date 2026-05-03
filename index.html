@@ -825,8 +825,12 @@ h2.title {
   .tarifs-grid { grid-template-columns:repeat(2,1fr); }
 }
 @media(max-width:600px) {
-  .tarifs-grid { grid-template-columns:1fr; }
-  .packs-grid { grid-template-columns:1fr; }
+  .tarifs-grid { grid-template-columns:1fr 1fr; gap:0.75rem; }
+  .packs-grid { grid-template-columns:1fr; gap:0.75rem; }
+  .tarif-card { padding: 1.2rem 1rem; }
+  .pack-card { padding: 1.5rem 1.2rem; }
+  .tarif-price { font-size: 1.6rem; }
+  .tarifs-intro { margin-bottom: 2rem; }
 }
 .contact-grid {
   display:grid; grid-template-columns:1fr 1.2fr;
@@ -1020,19 +1024,22 @@ footer {
   .hero-stat-label { font-size: 0.7rem; }
 
   /* Sections */
-  .section { padding: 3.5rem 1.2rem; }
+  .section { padding: 2.5rem 1.2rem; }
   h2.title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
 
   /* About */
-  .about-card-header { padding: 1.8rem 1.5rem 1.2rem; }
-  .about-card-stats { padding: 0 1.5rem; }
+  .about-card-header { padding: 1.5rem 1.2rem 1rem; }
+  .about-card-stats { padding: 0 1.2rem; }
 
   /* Services */
-  .service-card { padding: 2rem 1.5rem; }
+  .service-card { padding: 1.5rem 1.2rem; }
+  .services-grid { gap: 0.75rem; }
 
   /* Why */
-  .why-grid { grid-template-columns:1fr; }
-  .why-head { flex-direction:column; gap:1rem; }
+  .why-grid { grid-template-columns:1fr 1fr; gap:0.75rem; }
+  .why-head { flex-direction:column; gap:0.75rem; }
+  .why-card { padding: 1.2rem 1rem; }
+  .why-num-big { font-size: 3rem; }
 
   /* Counter */
   .counter-band { padding: 2.5rem 1.2rem; }
@@ -1047,7 +1054,42 @@ footer {
 
   /* Footer */
   footer { flex-direction:column; align-items:flex-start; gap:0.8rem; padding:1.8rem 1.2rem; }
+
+  /* Mobile section nav buttons */
+  .mobile-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 0.9rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .mobile-nav-btn:hover, .mobile-nav-btn:active {
+    background: var(--accent);
+    color: #0A0A0A;
+  }
+  .mobile-nav-btn svg {
+    width: 16px; height: 16px;
+    transition: transform 0.3s;
+  }
+  .mobile-nav-btn:hover svg, .mobile-nav-btn:active svg {
+    transform: translateX(4px);
+  }
 }
+
+/* Hide mobile nav buttons on desktop */
+.mobile-nav-btn { display: none; }
 </style>
 </head>
 <body>
@@ -1314,6 +1356,7 @@ footer {
         </div>
       </div>
     </div>
+    <a href="#services" class="mobile-nav-btn">Voir mes services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 </section>
 
@@ -1381,6 +1424,7 @@ footer {
         </div>
       </div>
     </div>
+    <a href="#tarifs" class="mobile-nav-btn">Voir les tarifs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 </section>
 
@@ -1455,6 +1499,7 @@ footer {
         <p>Un site complet livré en 5 à 7 jours ouvrables si on travaille efficacement ensemble.</p>
       </div>
     </div>
+    <a href="#tarifs" class="mobile-nav-btn">Voir les tarifs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 </section>
 
@@ -1554,6 +1599,7 @@ footer {
     </div>
 
     <p class="tarifs-note reveal">Ces tarifs sont donnés à titre indicatif et restent <strong style="color:var(--white)">négociables selon votre projet</strong>. Chaque situation est unique, <a href="#contact">contactez-moi</a> pour un devis gratuit et sur mesure.</p>
+    <a href="#contact" class="mobile-nav-btn">Démarrer un projet <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
 
   </div>
 </section>
