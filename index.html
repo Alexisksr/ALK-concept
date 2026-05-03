@@ -194,7 +194,7 @@ body::before {
   min-height:100vh;
   display:grid; grid-template-columns:1fr 1fr;
   position:relative; overflow:hidden;
-  padding-top:70px;
+  padding-top:0;
 }
 .hero-left {
   display:flex; flex-direction:column; justify-content:center;
@@ -428,7 +428,8 @@ body::before {
 /* ── TICKER ─── */
 .ticker-wrap {
   background:var(--accent); padding:0.9rem 0; overflow:hidden;
-  position:relative; z-index:2;
+  position:relative; z-index:99;
+  margin-top: 64px;
 }
 .ticker-inner {
   display:inline-flex; gap:0; white-space:nowrap;
@@ -1117,6 +1118,26 @@ footer {
   </button>
 </nav>
 
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
 <!-- MOBILE NAV -->
 <div class="nav-mobile" id="navMobile">
   <a href="#about" class="nav-mobile-link">À propos</a>
@@ -1258,26 +1279,6 @@ footer {
     </div>
   </div>
 </section>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-inner">
-    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
-  </div>
-</div>
 
 <!-- ABOUT -->
 <section class="section" id="about">
