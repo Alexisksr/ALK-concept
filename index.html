@@ -1027,30 +1027,37 @@ footer {
   .about-card-header { padding: 1.2rem 1.2rem 0.8rem; }
   .about-card-stats { padding: 0 1.2rem; }
 
-  /* Services */
-  .service-card { padding: 1.2rem 1rem; }
-  .services-grid { gap: 0.6rem; }
-  .service-price { font-size: 1.3rem; }
-  .service-name { font-size: 1rem; }
-  .service-desc { font-size: 0.82rem; line-height: 1.5; }
+  /* Services — layout horizontal compact */
+  .services-grid { gap: 0.5rem; }
+  .service-card { padding: 1rem; display: grid; grid-template-columns: 40px 1fr; grid-template-rows: auto auto; column-gap: 0.9rem; align-items: start; }
+  .service-icon { width: 40px; height: 40px; margin-bottom: 0; border-radius: 10px; grid-row: 1 / 3; }
+  .service-icon svg { width: 18px; height: 18px; }
+  .service-num { display: none; }
+  .service-name { font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .service-desc { font-size: 0.78rem; line-height: 1.45; margin-bottom: 0.6rem; }
+  .service-footer { padding-top: 0.6rem; grid-column: 2; }
+  .service-price { font-size: 0.85rem; }
+  .service-tag { font-size: 0.65rem; }
 
   /* Why */
   .why-grid { grid-template-columns:1fr 1fr; gap:0.6rem; }
   .why-card { padding: 1rem 0.8rem; }
-  .why-num-big { font-size: 4rem; opacity: 0.12; bottom: -0.5rem; right: 0.2rem; }
+  .why-num-big { font-size: 2.8rem; opacity: 0.1; bottom: -0.3rem; right: 0.2rem; }
   .why-tag { font-size: 0.6rem; margin-bottom: 0.5rem; }
   .why-card h3 { font-size: 0.9rem; margin-bottom: 0.4rem; }
   .why-card p { font-size: 0.78rem; line-height: 1.5; }
   .why-head { flex-direction:column; gap:0.75rem; }
 
   /* Tarifs */
-  .tarifs-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-  .tarif-card { padding: 1rem 0.9rem; gap: 0.6rem; border-radius: 12px; }
-  .tarif-name { font-size: 0.95rem; }
-  .tarif-desc { font-size: 0.78rem; }
-  .tarif-price { font-size: 1.4rem; }
-  .tarif-includes li { font-size: 0.75rem; }
+  .tarifs-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .tarif-card { padding: 1rem 0.85rem; gap: 0.5rem; border-radius: 12px; }
   .tarif-icon svg { width: 20px; height: 20px; }
+  .tarif-name { font-size: 0.88rem; }
+  .tarif-desc { display: none; }
+  .tarif-price { font-size: 1.3rem; }
+  .tarif-price span { font-size: 0.7rem; }
+  .tarif-includes li { font-size: 0.72rem; line-height: 1.4; }
+  .tarif-includes li:nth-child(n+3) { display: none; }
 
   /* Counter */
   .counter-band { padding: 1.5rem 1.2rem; }
