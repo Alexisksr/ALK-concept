@@ -706,6 +706,128 @@ h2.title {
 
 /* ── CONTACT ─── */
 .contact-section { border-top:1px solid var(--border); }
+
+/* ── TARIFS ── */
+.tarifs-section { border-top:1px solid var(--border); }
+.tarifs-intro { text-align:center; margin-bottom:3.5rem; }
+.tarifs-intro .label { margin-bottom:0.5rem; }
+.tarifs-intro .title { margin-bottom:1rem; }
+.tarifs-intro p { color:var(--subtle); max-width:520px; margin:0 auto; }
+
+.tarifs-grid {
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:1.5rem;
+  margin-bottom:3rem;
+}
+
+.tarif-card {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:2rem 1.5rem;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  transition:transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position:relative;
+  overflow:hidden;
+}
+.tarif-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--accent), transparent);
+  opacity:0;
+  transition:opacity 0.3s ease;
+}
+.tarif-card:hover { transform:translateY(-6px); border-color:rgba(30,202,211,0.3); box-shadow:0 20px 40px rgba(30,202,211,0.08); }
+.tarif-card:hover::before { opacity:1; }
+
+.tarif-icon { display:flex; align-items:center; justify-content:flex-start; }
+.tarif-name { font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:700; color:var(--white); }
+.tarif-desc { font-size:0.85rem; color:var(--subtle); line-height:1.6; flex:1; }
+.tarif-price { font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; color:var(--accent); }
+.tarif-price span { font-size:0.85rem; font-weight:400; color:var(--subtle); }
+.tarif-includes { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+.tarif-includes li { font-size:0.82rem; color:var(--subtle); display:flex; align-items:flex-start; gap:0.5rem; }
+.tarif-includes li::before { content:'✓'; color:var(--accent); font-weight:700; flex-shrink:0; }
+
+/* PACKS */
+.packs-title {
+  text-align:center;
+  font-family:'Syne',sans-serif;
+  font-size:1.3rem;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:1.5rem;
+}
+.packs-title span { color:var(--accent); }
+
+.packs-grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:1.5rem;
+  max-width:800px;
+  margin:0 auto 3rem;
+}
+
+.pack-card {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:2rem;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  transition:transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position:relative;
+  overflow:hidden;
+}
+.pack-card.featured {
+  border-color:rgba(30,202,211,0.4);
+  background:linear-gradient(135deg, rgba(30,202,211,0.05), var(--bg2));
+}
+.pack-badge {
+  position:absolute;
+  top:16px; right:16px;
+  background:var(--accent);
+  color:#000;
+  font-size:0.7rem;
+  font-weight:700;
+  padding:3px 10px;
+  border-radius:20px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+.pack-card:hover { transform:translateY(-6px); border-color:rgba(30,202,211,0.4); box-shadow:0 20px 40px rgba(30,202,211,0.08); }
+.pack-name { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:700; color:var(--white); }
+.pack-content { font-size:0.85rem; color:var(--subtle); }
+.pack-price { font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:800; color:var(--accent); }
+.pack-price span { font-size:0.85rem; font-weight:400; color:var(--subtle); }
+.pack-includes { list-style:none; display:flex; flex-direction:column; gap:0.5rem; }
+.pack-includes li { font-size:0.85rem; color:var(--subtle); display:flex; align-items:flex-start; gap:0.5rem; }
+.pack-includes li::before { content:'✓'; color:var(--accent); font-weight:700; flex-shrink:0; }
+
+.tarifs-note {
+  text-align:center;
+  color:var(--muted);
+  font-size:0.85rem;
+}
+.tarifs-note a {
+  color:var(--accent);
+  text-decoration:none;
+}
+.tarifs-note a:hover { text-decoration:underline; }
+
+@media(max-width:1000px) {
+  .tarifs-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:600px) {
+  .tarifs-grid { grid-template-columns:1fr; }
+  .packs-grid { grid-template-columns:1fr; }
+}
 .contact-grid {
   display:grid; grid-template-columns:1fr 1.2fr;
   gap:6rem; align-items:start;
@@ -942,6 +1064,7 @@ footer {
     <li><a href="#about">À propos</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#pourquoi">Pourquoi moi</a></li>
+    <li><a href="#tarifs">Tarifs</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Démarrer un projet →</a>
@@ -957,6 +1080,7 @@ footer {
   <a href="#about" class="nav-mobile-link">À propos</a>
   <a href="#services" class="nav-mobile-link">Services</a>
   <a href="#pourquoi" class="nav-mobile-link">Pourquoi moi</a>
+  <a href="#tarifs" class="nav-mobile-link">Tarifs</a>
   <a href="#contact" class="nav-mobile-link">Contact</a>
 </div>
 
@@ -1213,11 +1337,11 @@ footer {
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
         </div>
         <div class="service-num">01</div>
-        <div class="service-name">Site vitrine sur mesure</div>
-        <div class="service-desc">Un site professionnel, unique et responsive — conçu de A à Z selon votre identité et vos besoins.</div>
+        <div class="service-name">Site vitrine</div>
+        <div class="service-desc">Un site web moderne et sur mesure, conçu de A à Z selon votre identité. Design responsive, formulaire de contact et livraison en 5 à 7 jours.</div>
         <div class="service-footer">
           <span class="service-tag">HTML / CSS / JS</span>
-          <span class="service-price">Dès CHF 1'200.–</span>
+          <span class="service-price">CHF 690.–</span>
         </div>
       </div>
       <div class="service-card">
@@ -1225,35 +1349,35 @@ footer {
           <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         </div>
         <div class="service-num">02</div>
-        <div class="service-name">Refonte de site existant</div>
-        <div class="service-desc">Votre site actuel est daté ? Je le transforme en vitrine moderne, responsive et percutante.</div>
+        <div class="service-name">Refonte de site</div>
+        <div class="service-desc">Votre site est vieillissant ? Je le modernise complètement tout en conservant votre contenu et votre identité de marque.</div>
         <div class="service-footer">
           <span class="service-tag">Redesign</span>
-          <span class="service-price">Sur devis</span>
+          <span class="service-price">CHF 590.–</span>
         </div>
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
         </div>
         <div class="service-num">03</div>
-        <div class="service-name">Rédaction & contenu</div>
-        <div class="service-desc">Des textes professionnels qui valorisent votre activité et convainquent vos visiteurs.</div>
+        <div class="service-name">Maintenance mensuelle</div>
+        <div class="service-desc">Je m'occupe de votre site chaque mois — mises à jour de contenu, corrections de bugs et support disponible.</div>
         <div class="service-footer">
-          <span class="service-tag">Inclus</span>
-          <span class="service-price">Offert</span>
+          <span class="service-tag">Mensuel</span>
+          <span class="service-price">CHF 79.–/mois</span>
         </div>
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
         <div class="service-num">04</div>
-        <div class="service-name">Optimisation mobile</div>
-        <div class="service-desc">100 % responsive — parfait sur smartphone, tablette et desktop. Sans compromis.</div>
+        <div class="service-name">SEO de base</div>
+        <div class="service-desc">Améliorez votre visibilité sur Google chaque mois avec un suivi régulier, des optimisations et des rapports clairs.</div>
         <div class="service-footer">
-          <span class="service-tag">Inclus</span>
-          <span class="service-price">Offert</span>
+          <span class="service-tag">Mensuel</span>
+          <span class="service-price">CHF 199.–/mois</span>
         </div>
       </div>
     </div>
@@ -1331,6 +1455,106 @@ footer {
         <p>5 à 7 jours ouvrables pour un site complet et professionnel. Besoin de plus rapide ? On en discute.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="section tarifs-section" id="tarifs">
+  <div class="section-inner">
+
+    <div class="tarifs-intro reveal">
+      <span class="label">Tarifs</span>
+      <h2 class="title">Des prix clairs,<br>sans surprise.</h2>
+      <p>Des tarifs transparents et accessibles pour les indépendants, PME et entrepreneurs de Suisse romande.</p>
+    </div>
+
+    <!-- Services -->
+    <div class="tarifs-grid">
+      <div class="tarif-card reveal">
+        <div class="tarif-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+        <div class="tarif-name">Site vitrine</div>
+        <div class="tarif-desc">Un site web moderne et sur mesure, conçu de A à Z selon votre identité.</div>
+        <div class="tarif-price">CHF 690 <span>unique</span></div>
+        <ul class="tarif-includes">
+          <li>5 à 8 pages</li>
+          <li>Design responsive (mobile & desktop)</li>
+          <li>Formulaire de contact</li>
+          <li>Livraison en 5 à 7 jours</li>
+        </ul>
+      </div>
+
+      <div class="tarif-card reveal">
+        <div class="tarif-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="tarif-name">Refonte de site</div>
+        <div class="tarif-desc">Votre site est vieillissant ? Je le modernise complètement tout en conservant votre contenu.</div>
+        <div class="tarif-price">CHF 590 <span>unique</span></div>
+        <ul class="tarif-includes">
+          <li>Nouveau design moderne</li>
+          <li>Migration du contenu existant</li>
+          <li>Optimisation mobile</li>
+          <li>Livraison en 5 à 7 jours</li>
+        </ul>
+      </div>
+
+      <div class="tarif-card reveal">
+        <div class="tarif-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <div class="tarif-name">Maintenance</div>
+        <div class="tarif-desc">Je m'occupe de votre site chaque mois — mises à jour, corrections et disponibilité.</div>
+        <div class="tarif-price">CHF 79 <span>/mois</span></div>
+        <ul class="tarif-includes">
+          <li>Mises à jour de contenu</li>
+          <li>Surveillance du site</li>
+          <li>Corrections de bugs</li>
+          <li>Support par email & téléphone</li>
+        </ul>
+      </div>
+
+      <div class="tarif-card reveal">
+        <div class="tarif-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--accent)" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="tarif-name">SEO de base</div>
+        <div class="tarif-desc">Améliorez votre visibilité sur Google chaque mois avec un suivi régulier et des rapports clairs.</div>
+        <div class="tarif-price">CHF 199 <span>/mois</span></div>
+        <ul class="tarif-includes">
+          <li>Optimisation des balises</li>
+          <li>Suivi Google Search Console</li>
+          <li>Rapport mensuel des performances</li>
+          <li>Conseils d'amélioration</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Packs -->
+    <div class="packs-title reveal">Les <span>packs</span> — encore plus avantageux</div>
+    <div class="packs-grid">
+      <div class="pack-card reveal">
+        <div class="pack-name">Pack Starter</div>
+        <div class="pack-content">L'essentiel pour démarrer avec un site professionnel et une présence en ligne soignée.</div>
+        <div class="pack-price">CHF 749 <span>tout compris</span></div>
+        <ul class="pack-includes">
+          <li>Site vitrine complet (5-8 pages)</li>
+          <li>1 mois de maintenance offert</li>
+          <li>Formulaire de contact</li>
+          <li>Livraison en 5 à 7 jours</li>
+        </ul>
+      </div>
+
+      <div class="pack-card featured reveal">
+        <div class="pack-badge">⭐ Populaire</div>
+        <div class="pack-name">Pack Pro</div>
+        <div class="pack-content">La solution complète pour booster votre visibilité et votre présence digitale durablement.</div>
+        <div class="pack-price">CHF 1'199 <span>tout compris</span></div>
+        <ul class="pack-includes">
+          <li>Site vitrine complet (5-8 pages)</li>
+          <li>3 mois de SEO inclus</li>
+          <li>3 mois de maintenance inclus</li>
+          <li>Suivi Google Search Console</li>
+          <li>Livraison en 5 à 7 jours</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="tarifs-note reveal">Ces tarifs sont donnés à titre indicatif et restent <strong style="color:var(--white)">négociables selon votre projet</strong>. Chaque situation est unique — <a href="#contact">contactez-moi</a> pour un devis gratuit et sur mesure.</p>
+
   </div>
 </section>
 
