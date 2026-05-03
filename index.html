@@ -191,14 +191,14 @@ body::before {
 
 /* ── HERO ─── */
 .hero {
-  min-height:100vh;
+  min-height: calc(100vh - 46px);
   display:grid; grid-template-columns:1fr 1fr;
   position:relative; overflow:hidden;
   padding-top:70px;
 }
 .hero-left {
   display:flex; flex-direction:column; justify-content:center;
-  padding: 6rem 3rem 6rem 4rem;
+  padding: 0 3rem 2rem 4rem;
   position:relative; z-index:2;
 }
 .hero-right {
@@ -1073,6 +1073,8 @@ footer {
       <path id="menu-icon-1" d="M3 6h18"/><path id="menu-icon-2" d="M3 12h18"/><path id="menu-icon-3" d="M3 18h18"/>
     </svg>
   </button>
+</nav>
+
 <!-- MOBILE NAV -->
 <div class="nav-mobile" id="navMobile">
   <a href="#about" class="nav-mobile-link">À propos</a>
