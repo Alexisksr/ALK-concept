@@ -191,10 +191,10 @@ body::before {
 
 /* ── HERO ─── */
 .hero {
-  min-height:100vh;
+  min-height: calc(100vh - 44px);
   display:grid; grid-template-columns:1fr 1fr;
   position:relative; overflow:hidden;
-  padding-top:0;
+  padding-top:70px;
 }
 .hero-left {
   display:flex; flex-direction:column; justify-content:center;
@@ -428,8 +428,7 @@ body::before {
 /* ── TICKER ─── */
 .ticker-wrap {
   background:var(--accent); padding:0.9rem 0; overflow:hidden;
-  position:relative; z-index:99;
-  margin-top: 64px;
+  position:relative; z-index:2;
 }
 .ticker-inner {
   display:inline-flex; gap:0; white-space:nowrap;
@@ -826,11 +825,10 @@ h2.title {
   .tarifs-grid { grid-template-columns:repeat(2,1fr); }
 }
 @media(max-width:600px) {
-  .tarifs-grid { grid-template-columns:1fr 1fr; gap:0.75rem; }
+  .tarifs-grid { grid-template-columns:1fr; gap:0.75rem; }
   .packs-grid { grid-template-columns:1fr; gap:0.75rem; }
-  .tarif-card { padding: 1.2rem 1rem; }
+  .tarif-card { padding: 1.5rem 1.2rem; }
   .pack-card { padding: 1.5rem 1.2rem; }
-  .tarif-price { font-size: 1.6rem; }
   .tarifs-intro { margin-bottom: 2rem; }
 }
 .contact-grid {
@@ -1037,10 +1035,12 @@ footer {
   .services-grid { gap: 0.75rem; }
 
   /* Why */
-  .why-grid { grid-template-columns:1fr 1fr; gap:0.75rem; }
+  .why-grid { grid-template-columns:1fr; gap:0.75rem; }
   .why-head { flex-direction:column; gap:0.75rem; }
-  .why-card { padding: 1.2rem 1rem; }
-  .why-num-big { font-size: 3rem; }
+  .why-card { padding: 1.2rem 1rem; display:flex; flex-direction:row; align-items:flex-start; gap:1rem; }
+  .why-num-big { display:none; }
+  .why-card h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+  .why-card p { font-size: 0.85rem; }
 
   /* Counter */
   .counter-band { padding: 2.5rem 1.2rem; }
@@ -1116,28 +1116,6 @@ footer {
       <path id="menu-icon-1" d="M3 6h18"/><path id="menu-icon-2" d="M3 12h18"/><path id="menu-icon-3" d="M3 18h18"/>
     </svg>
   </button>
-</nav>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-inner">
-    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
-    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
-  </div>
-</div>
-
 <!-- MOBILE NAV -->
 <div class="nav-mobile" id="navMobile">
   <a href="#about" class="nav-mobile-link">À propos</a>
@@ -1279,6 +1257,26 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Sites sur mesure</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">HTML / CSS / JS</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Design premium</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Responsive mobile</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Fribourg, Suisse</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Livraison 5–7 jours</span><span class="ticker-sep">·</span>
+    <span class="ticker-item">Prix transparent</span><span class="ticker-sep">·</span>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <section class="section" id="about">
