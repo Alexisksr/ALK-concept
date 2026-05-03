@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — ALK Concept</title>
+<link rel="icon" type="image/png" href="Logo%20arri%C3%A8re%20transp.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #0A0A0A;
+  --bg2: #0F0F0F;
+  --bg3: #141414;
+  --white: #FFFFFF;
+  --muted: #6B6B6B;
+  --subtle: #A1A1A1;
+  --accent: #1ECAD3;
+  --border: rgba(255,255,255,0.08);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* NAV */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10,10,10,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+.logo-alk { color: #fff; }
+.logo-concept { color: var(--accent); }
+
+.nav-back {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+.nav-back:hover { opacity: 0.7; }
+
+/* MAIN */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 140px 40px 80px;
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+h1 span { color: var(--accent); }
+
+.subtitle {
+  color: var(--subtle);
+  font-size: 0.95rem;
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(30,202,211,0.2);
+}
+
+p {
+  color: var(--subtle);
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px 24px;
+}
+
+.info-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.info-value {
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+footer a { color: var(--accent); }
+
+@media (max-width: 600px) {
+  #nav { padding: 16px 20px; }
+  main { padding: 110px 20px 60px; }
+  h1 { font-size: 1.8rem; }
+  .info-grid { grid-template-columns: 1fr; gap: 4px; }
+  .info-label { color: var(--accent); font-size: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="logo">
+    <span class="logo-alk">ALK</span><span class="logo-concept">CONCEPT</span>
+  </a>
+  <a href="index.html" class="nav-back">← Retour au site</a>
+</nav>
+
+<!-- MAIN -->
+<main>
+  <h1>Mentions <span>légales</span></h1>
+  <p class="subtitle">Dernière mise à jour : mai 2026</p>
+
+  <!-- Éditeur responsable -->
+  <div class="section">
+    <h2>Éditeur responsable</h2>
+    <div class="info-grid">
+      <span class="info-label">Nom</span>
+      <span class="info-value">Alexis Ludwig Käser</span>
+
+      <span class="info-label">Activité</span>
+      <span class="info-value">Créateur web freelance — ALK Concept</span>
+
+      <span class="info-label">Statut</span>
+      <span class="info-value">Indépendant</span>
+
+      <span class="info-label">Adresse</span>
+      <span class="info-value">Posieux, Fribourg, Suisse</span>
+
+      <span class="info-label">Téléphone</span>
+      <span class="info-value"><a href="tel:+41782628060">078 262 80 60</a></span>
+
+      <span class="info-label">Email</span>
+      <span class="info-value"><a href="mailto:alexis@alk-concept.ch">alexis@alk-concept.ch</a></span>
+
+      <span class="info-label">Site web</span>
+      <span class="info-value"><a href="https://alk-concept.ch">alk-concept.ch</a></span>
+    </div>
+  </div>
+
+  <!-- Hébergement -->
+  <div class="section">
+    <h2>Hébergement</h2>
+    <div class="info-grid">
+      <span class="info-label">Hébergeur</span>
+      <span class="info-value">GitHub Pages — GitHub, Inc.</span>
+
+      <span class="info-label">Adresse</span>
+      <span class="info-value">88 Colin P. Kelly Jr. St, San Francisco, CA 94107, États-Unis</span>
+
+      <span class="info-label">Site</span>
+      <span class="info-value"><a href="https://pages.github.com" target="_blank">pages.github.com</a></span>
+    </div>
+  </div>
+
+  <!-- Propriété intellectuelle -->
+  <div class="section">
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, images, graphismes, logo, icônes, code source) est la propriété exclusive d'<strong>ALK Concept — Alexis Ludwig Käser</strong>, sauf mention contraire.</p>
+    <p>Toute reproduction, distribution, modification ou utilisation de ce contenu, sous quelque forme que ce soit, sans autorisation écrite préalable, est strictement interdite.</p>
+    <p>© ALK Concept 2026 — Tous droits réservés.</p>
+  </div>
+
+  <!-- Protection des données -->
+  <div class="section">
+    <h2>Protection des données (RGPD / LPD)</h2>
+    <p>ALK Concept s'engage à protéger la vie privée de ses visiteurs. Ce site collecte uniquement les données personnelles que vous fournissez volontairement via le formulaire de contact (nom, prénom, adresse email, message).</p>
+    <p><strong>Finalité :</strong> Ces données sont utilisées exclusivement pour répondre à vos demandes et ne sont jamais transmises à des tiers à des fins commerciales.</p>
+    <p><strong>Conservation :</strong> Vos données sont conservées le temps nécessaire au traitement de votre demande.</p>
+    <p><strong>Traitement :</strong> Les formulaires sont traités via <a href="https://formspree.io" target="_blank">Formspree</a>, soumis à leur propre politique de confidentialité.</p>
+    <p><strong>Vos droits :</strong> Conformément à la Loi fédérale sur la protection des données (LPD) et au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits, contactez : <a href="mailto:alexis@alk-concept.ch">alexis@alk-concept.ch</a></p>
+  </div>
+
+  <!-- Responsabilité -->
+  <div class="section">
+    <h2>Limitation de responsabilité</h2>
+    <p>Les informations contenues sur ce site sont fournies à titre indicatif. ALK Concept s'efforce de maintenir ces informations à jour et exactes, mais ne peut garantir leur exhaustivité ou leur actualité.</p>
+    <p>ALK Concept ne saurait être tenu responsable des dommages directs ou indirects résultant de l'utilisation de ce site ou des informations qu'il contient.</p>
+    <p>Ce site peut contenir des liens vers des sites externes. ALK Concept n'est pas responsable du contenu de ces sites tiers.</p>
+  </div>
+
+  <!-- Droit applicable -->
+  <div class="section">
+    <h2>Droit applicable</h2>
+    <p>Le présent site et ses mentions légales sont soumis au <strong>droit suisse</strong>. Tout litige relatif à l'utilisation de ce site sera soumis à la juridiction compétente du canton de <strong>Fribourg, Suisse</strong>.</p>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 ALK Concept — <a href="index.html">alk-concept.ch</a> — Tous droits réservés</p>
+</footer>
+
+</body>
+</html>
